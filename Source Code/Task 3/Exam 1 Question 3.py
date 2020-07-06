@@ -55,6 +55,8 @@ y=wd.iloc[:,0]
 x=wd.iloc[:,2:]
 print(x)
 print(x.corr())
+sns.regplot(x="Apparent Temperature (C)", y="Temperature (C)", data=wd);
+plt.show()
 # apparent temperature and temperature correlation is nearly equal to 1 so we remove the apparent temperature section
 x.drop('Apparent Temperature (C)',axis=1,inplace=True)
 x.shape
@@ -121,3 +123,7 @@ print("\n\nCalculating some regression quality metrics for visibility")
 y_pred = ls.predict(X_test)
 print("MSE = ",mean_squared_error(y_test, y_pred))
 print("R2 = ",r2_score(y_test, y_pred))
+sns.regplot(x="Humidity", y="Temperature (C)", data=wd);
+plt.show()
+sns.regplot(x="Visibility (km)", y="Temperature (C)", data=wd);
+plt.show()
