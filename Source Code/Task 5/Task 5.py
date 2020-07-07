@@ -93,16 +93,22 @@ df['Contract Valid Until'] = df['Contract Valid Until'].apply(convertContractVal
 print(df.dtypes)
 
 
+
+
+
 data = df.select_dtypes(include=[np.number]).interpolate().dropna()
 
 corr = data.corr()
 plt.figure(figsize=(20, 20));
 sns.heatmap(corr, annot=True, cmap="YlGnBu")
-plt.show();
+plt.show()
+print('Value - Top 10 correlated Values')
 print(corr['Value'].sort_values(ascending=False)[1:11], '\n')
 print('--------------------')
+print('Wage - Top 10 correlated Values')
 print(corr['Wage'].sort_values(ascending=False)[1:11], '\n')
 print('--------------------')
+print('Potential - Top 10 correlated Values')
 print(corr['Potential'].sort_values(ascending=False)[1:11], '\n')
 
 ################################################################
