@@ -6,7 +6,7 @@ from sklearn.cluster import KMeans
 from sklearn.metrics import silhouette_score
 from sklearn.cluster import AgglomerativeClustering
 from sklearn.model_selection import train_test_split
-from sklearn.manifold import TSNE
+
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
@@ -19,6 +19,7 @@ import seaborn as sns
 from pandas import plotting
 import random
 random.seed(50)
+# importing the customer dataset and reading the data
 cc = pd.read_csv("C:/Users/Devna Chaturvedi/Desktop/Python Exam 1/Question 1/Customers.csv")
 cc.head()
 print(cc.head())
@@ -27,10 +28,10 @@ print(cc.shape)
 cc.info()
 cc.describe()
 print(cc.describe())
-# Null values
+# counting the null values and removing the null values to clean the data
 cc.isnull().sum().sort_values(ascending=False)
 print(cc.isnull().sum().sort_values(ascending=False))
-# to drop the customer id
+# since it is not essential we remove the customer id column
 cc = cc.drop('CustomerID', axis=1)
 cc.head(2)
 print(cc.head(2))
@@ -58,14 +59,14 @@ cc2.loc[:,'Gender'] = le.transform(cc2.Gender)
 # Create scaler: scaler
 scaler = StandardScaler()
 scaler.fit(cc2)
-# transform
+# transform and normalize the data and standardize the data for PCA analysis of the data
 data_scaled = scaler.transform(cc2)
 data_scaled[0:3]
 pca = PCA()
 
-# PCA
+
 pca.fit(data_scaled)
-# PCA features
+
 features = range(pca.n_components_)
 features
 # PCA transformed data
