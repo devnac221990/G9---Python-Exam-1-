@@ -13,7 +13,7 @@ def cleanunnamed(data):
     print('DataFrame After Cleaning:\n---------------------------\n', data.head())
     return data
 
-# Create function to remove all the special characters, numbers, and unwanted spaces from our text.
+# Create function to clean all unwanted in our text.
 def textclean(Textdata):
     documents = []
     import re
@@ -55,13 +55,10 @@ df = pd.read_csv("spam.csv", encoding = "ISO-8859-1")
 dfdataset= cleanunnamed(df)
 X, y = dfdataset['Text'], dfdataset['Class']
 
-# dataset = textclean(dfdataset['Text'])
 dataset = textclean(X)
 
-'''
-Converting Text to Numbers
-The following script uses the bag of words model to convert text documents into corresponding numerical features
-'''
+#Converting Text to Numbers
+
 from nltk.corpus import stopwords
 from sklearn.feature_extraction.text import TfidfVectorizer
 tfidfconverter = TfidfVectorizer(max_features=1500, min_df=5, max_df=0.7, stop_words=stopwords.words('english'))
@@ -69,11 +66,11 @@ X = tfidfconverter.fit_transform(dataset).toarray()
 
 
 
-#Traing and testing dataset by splitting dataset to train and test groups with test size of 20%
+# Splitting dataset to train and test groups with test size of 20%
 from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
-#
-# pass the training data and training target sets to this method. Take a look at the following script:
+
+
 from sklearn.ensemble import RandomForestClassifier
 classifier = RandomForestClassifier(n_estimators=100, random_state=0)
 classifier.fit(X_train, y_train)
@@ -81,6 +78,7 @@ classifier.fit(X_train, y_train)
 y_pred = classifier.predict(X_test)
 
 
-#evaluate the performance of a classification model
+#evaluate the performance
+
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
 print('Accuracy Score: ', accuracy_score(y_test, y_pred))
